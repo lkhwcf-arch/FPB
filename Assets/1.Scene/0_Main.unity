@@ -2338,6 +2338,7 @@ GameObject:
   - component: {fileID: 7170868076556929204}
   - component: {fileID: 633105556383964172}
   - component: {fileID: 9218907093630652472}
+  - component: {fileID: 6138495320739312991}
   m_Layer: 5
   m_Name: rankBoard
   m_TagString: Untagged
@@ -2345,6 +2346,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &6138495320739312991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6138495320739312980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1b41fd953ccb994f9a7a2741c52f901, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::RankBoardUI
+  rankItems: []
+  entriesContainer: {fileID: 7170868076556929204}
+  refreshInterval: 10
 --- !u!1 &6353332536231605610
 GameObject:
   m_ObjectHideFlags: 0

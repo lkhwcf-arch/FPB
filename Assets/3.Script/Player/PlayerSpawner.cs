@@ -13,6 +13,9 @@ public class PlayerSpawner : MonoBehaviour
     [SerializeField]
     private GameObject redBirdPrefab;
 
+    [SerializeField]
+    private Vector3 fallbackSpawnPosition = new Vector3(-43f, 6.5f, 0f);
+
     private void Start()
     {
         SpawnSelectedCharacter();
@@ -45,10 +48,28 @@ public class PlayerSpawner : MonoBehaviour
             return;
         }
 
-        Vector3 position = spawnPoint != null ? spawnPoint.position : transform.position;
+        bool hasSceneSpawnPoint = spawnPoint != null && spawnPoint.gameObject.scene.IsValid();
+        Vector3 position = hasSceneSpawnPoint ? spawnPoint.position : fallbackSpawnPosition;
+        Quaternion rotation = hasSceneSpawnPoint ? spawnPoint.rotation : Quaternion.identity;
 
-        Quaternion rotation = spawnPoint != null ? spawnPoint.rotation : transform.rotation;
+        if (!hasSceneSpawnPoint)
+        {
+            Debug.LogWarning(
+                "PlayerSpawner의 Spawn Point가 씬 오브젝트가 아닙니다. " +
+                $"Fallback Spawn Position {fallbackSpawnPosition}을 사용합니다.",
+                this
+            );
+        }
 
-        Instantiate(selectedPrefab, position, rotation);
+        GameObject player = Instantiate(selectedPrefab, position, rotation);
+        player.name = selectedPrefab.name;
+
+        PlayerSkill playerSkill = player.GetComponent<PlayerSkill>();
+        if (playerSkill == null)
+        {
+            playerSkill = player.AddComponent<PlayerSkill>();
+        }
+
+        playerSkill.Initialize(GameManager.Instance.SelectedCharacter);
     }
 }

@@ -59,11 +59,6 @@ public class GameManager : MonoBehaviour
         Debug.Log($"선택된 캐릭터: {SelectedCharacter}");
     }
 
-    private void Start()
-    {
-        InitializeGame();
-    }
-
     private void InitializeGame()
     {
         isGameOver = false;
@@ -128,8 +123,13 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(
-            SceneManager.GetActiveScene().buildIndex
-        );
+        BeginGame();
+        SceneManager.LoadScene("1_GameView");
+    }
+
+    public void ReturnToMain()
+    {
+        InitializeGame();
+        SceneManager.LoadScene("0_Main");
     }
 }

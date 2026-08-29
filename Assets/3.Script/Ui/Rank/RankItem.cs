@@ -1,9 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
 public class RankItem : MonoBehaviour
 {
     [SerializeField]
@@ -13,24 +9,14 @@ public class RankItem : MonoBehaviour
     private TMP_Text pointText;
 
     [SerializeField]
-    private TMP_Text dateText;
+    private TMP_Text nicknameText;
 
     public void SetData(RankData data)
     {
         rankText.text = data.rank.ToString();
 
         pointText.text = data.point.ToString();
-
-        if (DateTime.TryParse(
-            data.dateTime,
-            out DateTime dateTime))
-        {
-            dateText.text = dateTime.ToString("yyyy-MM-dd");
-        }
-        else
-        {
-            dateText.text = "-";
-        }
+        nicknameText.text = data.name;
 
         gameObject.SetActive(true);
     }

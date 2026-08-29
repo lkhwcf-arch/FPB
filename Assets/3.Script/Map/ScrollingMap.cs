@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class ScrollingMap : MonoBehaviour
 {
+    private const int PoolSize = 4;
+
     [Header("Prefabs")]
     [SerializeField]
     private GameObject[] scrollingPrefabs;
@@ -14,13 +16,15 @@ public class ScrollingMap : MonoBehaviour
 
     [Header("Scrolling")]
     [SerializeField]
-    private float sectionWidth = 30f;
+    private float sectionWidth = 50f;
 
     [SerializeField]
     private float scrollSpeed = 5f;
 
     [SerializeField]
     private float recycleX = -45f;
+
+    private float speedMultiplier = 1f;
 
     private readonly List<Transform> sections = new();
 
@@ -43,7 +47,14 @@ public class ScrollingMap : MonoBehaviour
 
     private void CreateSections()
     {
-        for (int i = 0; i < scrollingPrefabs.Length; i++)
+        if (scrollingPrefabs == null || scrollingPrefabs.Length < PoolSize)
+        {
+            Debug.LogError("ScrollingObject_0~3 네 개를 순서대로 연결해야 합니다.", this);
+            enabled = false;
+            return;
+        }
+
+        for (int i = 0; i < PoolSize; i++)
         {
             GameObject prefab = scrollingPrefabs[i];
 
@@ -70,7 +81,7 @@ public class ScrollingMap : MonoBehaviour
 
     private void MoveSections()
     {
-        float movement = scrollSpeed * Time.deltaTime;
+        float movement = scrollSpeed * speedMultiplier * Time.deltaTime;
 
         foreach (Transform section in sections)
         {
@@ -116,5 +127,10 @@ public class ScrollingMap : MonoBehaviour
         }
 
         return rightmostX;
+    }
+
+    public void SetSpeedMultiplier(float multiplier)
+    {
+        speedMultiplier = Mathf.Max(0f, multiplier);
     }
 }

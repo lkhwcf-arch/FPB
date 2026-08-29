@@ -8,6 +8,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject rankBoardPanel;
     [SerializeField] private InputField nicknameInputField;
     [SerializeField] private GameObject selectCharacterPanel;
+    [SerializeField] private GameObject nicknamePanel;
     private void Start()
     {
         if (rankBoardPanel != null)
@@ -18,9 +19,26 @@ public class MainMenuUI : MonoBehaviour
         {
             selectCharacterPanel.SetActive(false);
         }
+        if (nicknamePanel != null)
+        {
+            nicknamePanel.SetActive(false);
+        }
         if (nicknameInputField != null)
         {
             nicknameInputField.onEndEdit.AddListener(OnNameEndEdit);
+        }
+    }
+
+    public void OpenNicknameInput()
+    {
+        if (nicknamePanel != null)
+        {
+            nicknamePanel.SetActive(true);
+        }
+
+        if (nicknameInputField != null)
+        {
+            nicknameInputField.ActivateInputField();
         }
     }
     private void OnDestroy()
@@ -62,6 +80,10 @@ public class MainMenuUI : MonoBehaviour
 
         GameManager.Instance.SetName(inputName);
         nicknameInputField.DeactivateInputField();
+        if (nicknamePanel != null)
+        {
+            nicknamePanel.SetActive(false);
+        }
         if (selectCharacterPanel != null)
         {
             selectCharacterPanel.SetActive(true);
