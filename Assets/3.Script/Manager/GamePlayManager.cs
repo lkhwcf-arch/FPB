@@ -42,7 +42,7 @@ public class GameplayManager : MonoBehaviour
             return;
         }
 
-        scoreTimer += Time.unscaledDeltaTime;
+        scoreTimer += Time.deltaTime;
 
         while (scoreTimer >= 1f)
         {

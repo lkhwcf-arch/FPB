@@ -12,13 +12,24 @@ public class Controller : MonoBehaviour
     [SerializeField] private float minY = 3f;
 
     [SerializeField] private float maxY = 10f;
+    [SerializeField] private bool useWorldBoundaryDeath;
     private Rigidbody body;
-    bool isDead;
+    private bool isDead;
+    private float gravityMultiplier = 1f;
+    private float lightJumpWindowEndTime = -1f;
+    private float lightJumpGravityMultiplier = 0.5f;
+
+    public bool IsDead => isDead;
 
 
     private void Awake()
     {
-        body = GetComponent<Rigidbody>();
+        if (!TryGetComponent(out body))
+        {
+            Debug.LogError($"{name}: Controller와 같은 오브젝트에 Rigidbody가 필요합니다.", this);
+            enabled = false;
+            return;
+        }
 
         // 중력 배율을 직접 적용
         body.useGravity = false;
@@ -41,14 +52,16 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance == null ||
-            GameManager.Instance.IsGameOver)
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
         {
             return;
         }
 
         CheckJumpInput();
-        CheckYBoundary();
+        if (useWorldBoundaryDeath)
+        {
+            CheckYBoundary();
+        }
     }
     private void FixedUpdate()
     {
@@ -57,25 +70,20 @@ public class Controller : MonoBehaviour
             return;
         }
 
-        if (GameManager.Instance == null ||
-            GameManager.Instance.IsGameOver)
+        if (GameManager.Instance != null && GameManager.Instance.IsGameOver)
         {
             return;
         }
 
         body.AddForce(
-            Physics.gravity * gravityScale,
+            Physics.gravity * gravityScale * gravityMultiplier,
             ForceMode.Acceleration
         );
     }
     private void CheckJumpInput()
     {
-        if (Keyboard.current == null)
-        {
-            return;
-        }
-
-        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+        if ((Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame) ||
+            (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame))
         {
             Jump();
         }
@@ -87,6 +95,10 @@ public class Controller : MonoBehaviour
         {
             return;
         }
+
+        gravityMultiplier = Time.time <= lightJumpWindowEndTime
+            ? lightJumpGravityMultiplier
+            : 1f;
 
         Vector3 velocity = body.linearVelocity;
         velocity.y = jumpVelocity;
@@ -118,7 +130,22 @@ public class Controller : MonoBehaviour
     }
     private bool IsDeadlyObject(GameObject target)
     {
-        return target.CompareTag("Enemy");
+        if (target.CompareTag("Enemy"))
+        {
+            return true;
+        }
+
+        Transform root = target.transform.root;
+        if (root != target.transform && root.CompareTag("Enemy"))
+        {
+            return true;
+        }
+
+        string objectName = target.name.ToLowerInvariant();
+        return objectName.Contains("pipe") ||
+               objectName.Contains("ground") ||
+               objectName.Contains("floor") ||
+               objectName.Contains("ceiling");
     }
     // 사망시 처리 
     private void Dead()
@@ -147,6 +174,15 @@ public class Controller : MonoBehaviour
     {
         if (isDead) return;
 
-        GameManager.Instance.AddScore(1);
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddScore(1);
+        }
+    }
+
+    public void EnableLightJumpWindow(float duration, float gravityScaleMultiplier)
+    {
+        lightJumpWindowEndTime = Time.time + Mathf.Max(0f, duration);
+        lightJumpGravityMultiplier = Mathf.Clamp(gravityScaleMultiplier, 0.1f, 1f);
     }
 }
