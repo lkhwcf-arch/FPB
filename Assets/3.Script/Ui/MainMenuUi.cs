@@ -36,4 +36,13 @@ public class MainMenuUI : MonoBehaviour
 
         rankBoardPanel.SetActive(false);
     }
+
+    // X버튼으로 오브젝트 비활성화 공통
+    public void CloseButton(GameObject closeObject)
+    {
+        if (closeObject is null) return;
+
+        closeObject.SetActive(false);
+        
+    }
 }
