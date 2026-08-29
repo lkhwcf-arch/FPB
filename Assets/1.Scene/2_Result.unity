@@ -202,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7526325929253584615}
         m_TargetAssemblyTypeName: MainMenuUI, Assembly-CSharp
-        m_MethodName: OpenRankBoard
+        m_MethodName: InGameLoad
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -722,6 +722,7 @@ GameObject:
   - component: {fileID: 7470938433092776209}
   - component: {fileID: 7435821752122159255}
   - component: {fileID: 4057008316675337877}
+  - component: {fileID: 7526325929253584615}
   m_Layer: 5
   m_Name: Canvas_Result
   m_TagString: Untagged
@@ -1180,6 +1181,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &7526325929253584615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775285784378273371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc9f48de3a5bfe94fa11a0ded1fe0066, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MainMenuUI
+  mainPanel: {fileID: 0}
+  rankBoardPanel: {fileID: 0}
+  nicknameInputField: {fileID: 0}
+  selectCharacterPanel: {fileID: 0}
 --- !u!114 &7601024326711628332
 MonoBehaviour:
   m_ObjectHideFlags: 0
