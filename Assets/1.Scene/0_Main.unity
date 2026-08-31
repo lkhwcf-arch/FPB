@@ -694,6 +694,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b57eb179138acf48bbd30f55e981951, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
+  bgmSource: {fileID: 0}
+  bgmClip: {fileID: 8300000, guid: 1ded6f1a6eb62c54dbc86c9b251079a1, type: 3}
+  bgmVolume: 0.5
+  sfxSource: {fileID: 0}
+  mouseClickClip: {fileID: 8300000, guid: fe98acbe0b28bcd4e836bb6c13b3d00a, type: 3}
+  jumpClip: {fileID: 8300000, guid: 699c5d6c43beacc43af1d5ad65d2af49, type: 3}
+  skillClip: {fileID: 8300000, guid: 861f67a900bc0d044b4bee8e1194d9b8, type: 3}
+  deathClip: {fileID: 8300000, guid: 8ca4709c27e84ab4c9aa0d00e5e0b7d2, type: 3}
+  sfxVolume: 1
 --- !u!114 &494911725
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2327,6 +2336,7 @@ MonoBehaviour:
   rankBoardPanel: {fileID: 6138495320739312980}
   nicknameInputField: {fileID: 5588974884308160800}
   selectCharacterPanel: {fileID: 3000066973849035634}
+  nicknamePanel: {fileID: 0}
 --- !u!1 &6138495320739312980
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,7 +2366,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1b41fd953ccb994f9a7a2741c52f901, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RankBoardUI
   rankItems: []
   entriesContainer: {fileID: 7170868076556929204}
