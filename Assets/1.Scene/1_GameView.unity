@@ -449,7 +449,7 @@ MonoBehaviour:
   - {fileID: 7634801602585822008, guid: 659b1a01991fea149aa283f1d120fc41, type: 3}
   startPosition: {x: -13.5, y: 0, z: 1.25}
   sectionWidth: 50
-  scrollSpeed: 5
+  scrollSpeed: 8
   recycleX: -45
 --- !u!1 &383421362
 GameObject:
