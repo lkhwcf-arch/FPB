@@ -155,7 +155,7 @@ MonoBehaviour:
   jumpVelocity: 6
   gravityScale: 1
   minY: 3
-  maxY: 10
+  maxY: 200
   useWorldBoundaryDeath: 0
 --- !u!114 &4023464586503121912
 MonoBehaviour:
