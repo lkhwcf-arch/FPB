@@ -70,6 +70,8 @@ public class PlayerSkill : MonoBehaviour
         nextUseTime = Time.time + Mathf.Max(0.01f, cooldown);
         UpdateCooldownMask();
 
+        GameManager.Instance?.PlaySkillSound();
+
         if (characterType == CharacterType.RedBird)
         {
             controller.EnableLightJumpWindow(effectDuration, redGravityMultiplier);

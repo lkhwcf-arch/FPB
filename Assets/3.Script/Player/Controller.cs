@@ -13,6 +13,7 @@ public class Controller : MonoBehaviour
 
     [SerializeField] private float maxY = 10f;
     [SerializeField] private bool useWorldBoundaryDeath;
+
     private Rigidbody body;
     private bool isDead;
     private float gravityMultiplier = 1f;
@@ -82,8 +83,7 @@ public class Controller : MonoBehaviour
     }
     private void CheckJumpInput()
     {
-        if ((Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame) ||
-            (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame))
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             Jump();
         }
@@ -95,6 +95,8 @@ public class Controller : MonoBehaviour
         {
             return;
         }
+
+        GameManager.Instance.PlayJumpSound();
 
         gravityMultiplier = Time.time <= lightJumpWindowEndTime
             ? lightJumpGravityMultiplier
