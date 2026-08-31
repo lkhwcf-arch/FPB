@@ -50,7 +50,10 @@ public class PlayerSpawner : MonoBehaviour
 
         bool hasSceneSpawnPoint = spawnPoint != null && spawnPoint.gameObject.scene.IsValid();
         Vector3 position = hasSceneSpawnPoint ? spawnPoint.position : fallbackSpawnPosition;
-        Quaternion rotation = hasSceneSpawnPoint ? spawnPoint.rotation : Quaternion.identity;
+                // X축 0도, Y축 -90도, Z축 0도
+        Quaternion rotation = Quaternion.Euler(0f, -90f, 0f);
+        
+
 
         if (!hasSceneSpawnPoint)
         {
